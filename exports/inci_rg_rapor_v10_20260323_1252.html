@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>İnci Holding — Mevzuat Radarı 23.03.2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ── v10 Editorial Gazette Theme ───────────────────────────── */
+:root{
+  --bg:#0C0C0E;--s1:#111114;--s2:#0E0E10;--bd:#1E1E22;--bd2:#1A1A1E;
+  --t1:#EEEAE2;--t2:#B0ACA4;--t3:#8A8578;--t4:#5A5750;--t5:#3A3A3E;--t6:#2A2A2E;
+  --red:#C8553D;--gold:#E8A838;--blue:#2E86AB;--violet:#7E64A8;--slate:#7B9EBC;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --mono:'JetBrains Mono',Consolas,monospace;
+  --r:8px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--serif);background:var(--bg);color:var(--t2);
+  min-height:100vh;line-height:1.5;-webkit-font-smoothing:antialiased}
+/* Noise overlay */
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.025;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* ── Masthead ──────────────────────────────────────────────── */
+.mast{position:sticky;top:0;z-index:100;background:linear-gradient(180deg,var(--bg),rgba(12,12,14,.97));
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--bd);padding:0 48px}
+.mast-inner{max-width:1440px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:72px}
+.mast-brand{display:flex;align-items:center;gap:20px}
+.mast-logo{width:40px;height:40px;background:linear-gradient(135deg,var(--red),#A33A25);
+  border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:18px;
+  box-shadow:0 2px 12px rgba(200,85,61,.3)}
+.mast-title{font-size:18px;font-weight:700;letter-spacing:-.01em;color:var(--t1)}
+.mast-v{margin-left:10px;font-size:9px;font-family:var(--mono);background:rgba(200,85,61,.15);
+  border:1px solid rgba(200,85,61,.3);border-radius:3px;padding:2px 7px;color:var(--red);
+  vertical-align:middle;letter-spacing:.5px}
+.mast-sub{font-size:11px;color:var(--t4);font-family:var(--mono);letter-spacing:.3px;margin-top:2px}
+.mast-meta{text-align:right;font-family:var(--mono);font-size:11px;color:var(--t4);line-height:1.7}
+.mast-date{color:var(--t3)}
+
+/* ── Main ──────────────────────────────────────────────────── */
+.main{max-width:1440px;margin:0 auto;padding:40px 48px 100px;position:relative;z-index:1}
+
+/* ── Stats ─────────────────────────────────────────────────── */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:52px}
+.st{background:var(--s1);border:1px solid var(--bd);border-radius:var(--r);
+  padding:24px 28px;position:relative;overflow:hidden;
+  animation:fadeUp .5s ease both}
+.st::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--st-c)}
+.st-label{font-size:10px;font-family:var(--mono);letter-spacing:1.5px;color:var(--t4);margin-bottom:12px;font-weight:500}
+.st-val{font-size:42px;font-weight:300;line-height:1;color:var(--st-c)}
+.st-hint{font-size:10px;font-family:var(--mono);color:var(--t5);margin-top:8px}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.st:nth-child(1){animation-delay:.05s}
+.st:nth-child(2){animation-delay:.1s}
+.st:nth-child(3){animation-delay:.15s}
+.st:nth-child(4){animation-delay:.2s}
+
+/* ── Section ───────────────────────────────────────────────── */
+.sec{display:flex;align-items:center;gap:16px;margin-bottom:24px}
+.sec-t{font-size:10px;font-family:var(--mono);letter-spacing:2px;color:var(--t4);font-weight:600}
+.sec-line{flex:1;height:1px;background:var(--bd)}
+
+/* ── Company Cards ─────────────────────────────────────────── */
+.cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px;margin-bottom:60px}
+.cc{background:var(--s1);border:1px solid var(--bd);border-radius:var(--r);overflow:hidden;
+  animation:fadeUp .5s ease both}
+.cc:nth-child(1){animation-delay:.25s}
+.cc:nth-child(2){animation-delay:.3s}
+.cc:nth-child(3){animation-delay:.35s}
+.cc:nth-child(4){animation-delay:.4s}
+.cc:nth-child(5){animation-delay:.45s}
+.cc-head{padding:18px 22px;display:flex;align-items:center;gap:14px;
+  border-bottom:1px solid color-mix(in srgb,var(--co) 8%,transparent);
+  background:linear-gradient(135deg,color-mix(in srgb,var(--co) 4%,transparent),transparent)}
+.cc-icon{font-size:22px}
+.cc-info{flex:1}
+.cc-short{display:block;font-size:9px;font-family:var(--mono);color:var(--co);letter-spacing:1.5px;font-weight:600;opacity:.8}
+.cc-name{font-size:14px;font-weight:600;color:var(--t1);line-height:1.3}
+.cc-count{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:15px;font-weight:700;font-family:var(--mono)}
+.cc-count-on{background:color-mix(in srgb,var(--co) 15%,transparent);color:var(--co);
+  border:1px solid color-mix(in srgb,var(--co) 30%,transparent)}
+.cc-count-off{background:var(--bd2);color:var(--t5);border:1px solid var(--t6)}
+.cc-sector{font-size:10px;color:var(--t4);padding:8px 22px;border-bottom:1px solid var(--bd2);
+  font-family:var(--mono);letter-spacing:.3px}
+.cc-body{padding:14px 22px}
+.no-items{font-size:12px;color:var(--t5);padding:4px 0;font-style:italic}
+
+/* Card items */
+.ci{margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--bd2)}
+.ci:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none}
+.ci-head{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.pri-tag{font-size:9px;font-weight:600;padding:2px 8px;border-radius:3px;letter-spacing:.5px;font-family:var(--mono)}
+.multi-chip{font-size:8px;font-family:var(--mono);padding:2px 6px;border-radius:3px;
+  background:rgba(126,100,168,.12);color:var(--violet);border:1px solid rgba(126,100,168,.25)}
+.ci-score{font-size:10px;font-family:var(--mono);color:var(--t4);margin-left:auto}
+.ci-title{display:block;font-size:13px;line-height:1.55;color:var(--t2);text-decoration:none;
+  font-weight:500;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.ci-title:hover{color:var(--t1)}
+.ci-kw{font-size:10px;color:var(--t5);margin-top:5px;font-family:var(--mono)}
+.more-hint{font-size:10px;color:var(--t4);margin-top:10px;font-style:italic}
+
+/* ── Table Controls ────────────────────────────────────────── */
+.tc{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;align-items:center}
+.tc-search{background:var(--s1);border:1px solid var(--bd);border-radius:6px;color:var(--t2);
+  font-size:12px;padding:9px 16px;outline:none;width:260px;font-family:var(--mono);transition:border .2s}
+.tc-search:focus{border-color:var(--t5)}
+.tc-btn{background:transparent;border:1px solid var(--bd);border-radius:6px;color:var(--t4);
+  font-size:11px;padding:8px 16px;cursor:pointer;font-family:var(--mono);letter-spacing:.3px;transition:all .2s}
+.tc-btn:hover,.tc-btn.on{border-color:var(--t5);color:var(--t2);background:var(--bd2)}
+.tc-count{margin-left:auto;font-size:10px;color:var(--t5);font-family:var(--mono)}
+
+/* ── Table ─────────────────────────────────────────────────── */
+.tw{background:var(--s1);border:1px solid var(--bd);border-radius:var(--r);overflow:hidden}
+.tw-scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:12px}
+thead{background:var(--s2);position:sticky;top:72px;z-index:50}
+th{padding:14px 18px;text-align:left;font-size:9px;font-family:var(--mono);font-weight:600;
+  letter-spacing:1.2px;color:var(--t5);cursor:pointer;border-bottom:1px solid var(--bd2);
+  text-transform:uppercase;white-space:nowrap;transition:color .2s;user-select:none}
+th:hover,th.sorted{color:var(--t3)}
+td{padding:12px 18px;vertical-align:middle;border-bottom:1px solid #151518}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#14141A}
+tr.hidden{display:none!important}
+/* Status */
+.s-tag{font-size:9px;font-weight:600;padding:3px 10px;border-radius:3px;font-family:var(--mono);
+  letter-spacing:.4px;white-space:nowrap}
+.s-yes{background:#C8553D12;color:var(--red);border:1px solid #C8553D28}
+.s-no{background:var(--bd2);color:var(--t5);border:1px solid #222226}
+/* Company chip */
+.co-tag{font-size:9px;font-family:var(--mono);font-weight:600;padding:3px 8px;border-radius:3px;
+  letter-spacing:.5px;white-space:nowrap}
+.ex-tag{font-size:8px;font-family:var(--mono);padding:2px 5px;border-radius:2px;margin-left:4px;
+  background:rgba(126,100,168,.1);color:var(--violet);border:1px solid rgba(126,100,168,.2)}
+/* Title */
+.t-link{color:var(--t2);text-decoration:none;font-size:12px;line-height:1.5;font-weight:500;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.t-link:hover{color:var(--t1)}
+/* Keywords */
+.kw-t{font-size:9px;font-family:var(--mono);padding:2px 7px;border-radius:3px;
+  background:var(--bd2);color:var(--t4);border:1px solid #222226;white-space:nowrap;
+  display:inline-block;margin:1px 2px}
+/* Score bar */
+.sb{display:flex;align-items:center;gap:10px}
+.sb-track{flex:1;height:3px;background:var(--bd2);border-radius:2px;overflow:hidden;min-width:50px}
+.sb-fill{height:100%;border-radius:2px;transition:width .6s cubic-bezier(.23,1,.32,1)}
+.sb-val{font-family:var(--mono);font-size:10px;min-width:32px;text-align:right;font-weight:500}
+/* Category / Date */
+.cat-td{color:var(--t5);font-size:10px;font-family:var(--mono);max-width:140px;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.date-td{font-family:var(--mono);font-size:10px;color:var(--t5);white-space:nowrap}
+
+/* ── Footer ────────────────────────────────────────────────── */
+.ft{margin-top:56px;padding-top:24px;border-top:1px solid var(--bd2);
+  text-align:center;line-height:2;font-family:var(--mono);font-size:10px;color:var(--t6)}
+.ft-copy{margin-top:8px;color:var(--t5)}
+
+/* ── Responsive ────────────────────────────────────────────── */
+@media(max-width:900px){
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .cg{grid-template-columns:1fr}
+  .main{padding:20px 16px 60px}
+  .mast{padding:0 16px}
+  .mast-meta{display:none}
+}
+</style>
+</head>
+<body>
+
+<header class="mast">
+  <div class="mast-inner">
+    <div class="mast-brand">
+      <div class="mast-logo">🏛️</div>
+      <div>
+        <div class="mast-title">Mevzuat Radarı <span class="mast-v">v10</span></div>
+        <div class="mast-sub">İNCİ HOLDİNG · RESMİ GAZETE · GÜNLÜK ANALİZ</div>
+      </div>
+    </div>
+    <div class="mast-meta">
+      <div class="mast-date">23 March 2026, 13:05</div>
+      <div>Eşik: 38.0 · Çoklu Eşleşme · KW %60 / Sem %40</div>
+    </div>
+  </div>
+</header>
+
+<main class="main">
+  <!-- Stats -->
+  <div class="stats">
+    <div class="st" style="--st-c:var(--slate)">
+      <div class="st-label">TARANAN</div>
+      <div class="st-val">7</div>
+      <div class="st-hint">Bugünkü Resmi Gazete</div>
+    </div>
+    <div class="st" style="--st-c:var(--red)">
+      <div class="st-label">İLGİLİ</div>
+      <div class="st-val">0</div>
+      <div class="st-hint">Eşiği geçen ≥ 38.0</div>
+    </div>
+    <div class="st" style="--st-c:var(--gold)">
+      <div class="st-label">AKTİF ŞİRKET</div>
+      <div class="st-val">0</div>
+      <div class="st-hint">Eşleşme olan grup</div>
+    </div>
+    <div class="st" style="--st-c:var(--blue)">
+      <div class="st-label">İSABET</div>
+      <div class="st-val">0%</div>
+      <div class="st-hint">İlgili / Toplam</div>
+    </div>
+  </div>
+
+  <!-- Company Cards -->
+  <div class="sec"><span class="sec-t">ŞİRKET BAZINDA ÖZET</span><div class="sec-line"></div></div>
+  <div class="cg">
+            <div class="cc" style="--co:#1F4E79">
+              <div class="cc-head">
+                <span class="cc-icon">🚗</span>
+                <div class="cc-info">
+                  <span class="cc-short">MİJ</span>
+                  <span class="cc-name">Maxion İnci &amp; Jantaş</span>
+                </div>
+                <div class="cc-count cc-count-off">0</div>
+              </div>
+              <div class="cc-sector">Otomotiv &amp; Ağır Sanayi</div>
+              <div class="cc-body"><p class="no-items">Bugün ilgili karar bulunamadı.</p></div>
+            </div>
+            <div class="cc" style="--co:#1E6B3C">
+              <div class="cc-head">
+                <span class="cc-icon">⚡</span>
+                <div class="cc-info">
+                  <span class="cc-short">IGY</span>
+                  <span class="cc-name">İnci GS Yuasa &amp; Vflow Tech</span>
+                </div>
+                <div class="cc-count cc-count-off">0</div>
+              </div>
+              <div class="cc-sector">Enerji &amp; Çevre</div>
+              <div class="cc-body"><p class="no-items">Bugün ilgili karar bulunamadı.</p></div>
+            </div>
+            <div class="cc" style="--co:#7B3F00">
+              <div class="cc-head">
+                <span class="cc-icon">🚚</span>
+                <div class="cc-info">
+                  <span class="cc-short">YİL</span>
+                  <span class="cc-name">Yusen İnci Lojistik</span>
+                </div>
+                <div class="cc-count cc-count-off">0</div>
+              </div>
+              <div class="cc-sector">Gümrük &amp; Lojistik</div>
+              <div class="cc-body"><p class="no-items">Bugün ilgili karar bulunamadı.</p></div>
+            </div>
+            <div class="cc" style="--co:#6B2D8B">
+              <div class="cc-head">
+                <span class="cc-icon">🧊</span>
+                <div class="cc-info">
+                  <span class="cc-short">IMS</span>
+                  <span class="cc-name">ISM Minibar &amp; Starcool</span>
+                </div>
+                <div class="cc-count cc-count-off">0</div>
+              </div>
+              <div class="cc-sector">Soğutma &amp; Ticari Ekipman</div>
+              <div class="cc-body"><p class="no-items">Bugün ilgili karar bulunamadı.</p></div>
+            </div>
+            <div class="cc" style="--co:#8B1A1A">
+              <div class="cc-head">
+                <span class="cc-icon">🏛️</span>
+                <div class="cc-info">
+                  <span class="cc-short">VBH</span>
+                  <span class="cc-name">Vinci B.V. &amp; Holding (Genel)</span>
+                </div>
+                <div class="cc-count cc-count-off">0</div>
+              </div>
+              <div class="cc-sector">Kurumsal Hukuk &amp; Yatırım</div>
+              <div class="cc-body"><p class="no-items">Bugün ilgili karar bulunamadı.</p></div>
+            </div></div>
+
+  <!-- Table -->
+  <div class="sec"><span class="sec-t">TÜM KARARLAR</span><div class="sec-line"></div></div>
+  <div class="tc">
+    <input type="text" class="tc-search" id="searchBox" placeholder="Ara...">
+    <button class="tc-btn on" onclick="setFilter(this,'all')">Tümü</button>
+    <button class="tc-btn"    onclick="setFilter(this,'yes')">İlgili</button>
+    <button class="tc-btn"    onclick="setFilter(this,'no')">İlgisiz</button>
+    <span class="tc-count" id="rowCount">7 sonuç</span>
+  </div>
+  <div class="tw"><div class="tw-scroll">
+    <table>
+      <thead><tr>
+        <th onclick="sortT(0)">Durum</th>
+        <th onclick="sortT(1)">Şirket</th>
+        <th onclick="sortT(2)" style="min-width:360px">Başlık</th>
+        <th onclick="sortT(3)">Kategori</th>
+        <th onclick="sortT(4)">Anahtar Kelime</th>
+        <th onclick="sortT(5)">Skor</th>
+        <th onclick="sortT(6)">Tarih</th>
+      </tr></thead>
+      <tbody id="tb"></tbody>
+    </table>
+  </div></div>
+
+  <div class="ft">
+    <div>T.C. Resmi Gazete otomatik tarama ile oluşturulmuştur.</div>
+    <div>Hukuki değerlendirme için ilgili uzmanlarla görüşünüz.</div>
+    <div class="ft-copy">© 2026 İnci Holding — Mevzuat Radar v10</div>
+  </div>
+</main>
+
+<script>
+const R=[{"company": "—", "short": "—", "title": "MADDE 3-Bu Yönetmelik hükümlerini İçişleri Bakanı yürütür.", "category": "  Jandarma Genel \r\nKomutanlığına Ait Araç, Gereç, Mal ve Malzemelerin Satış, Hibe, Hek ve Hurda \r\nDurum ve İşlemleri ile Hizmet Satışına Dair Yönetmelikte Değişiklik Yapılmasına \r\nDair Yönetmelik", "kw": "—", "hybrid": 0.0, "url": "https://www.resmigazete.gov.tr/eskiler/2026/03/20260323-1.htm", "date": "2026-03-23", "potential": false, "extra": []}, {"company": "—", "short": "—", "title": "MADDE 3-Bu Yönetmelik hükümlerini Ticaret Bakanı yürütür.", "category": "  İkili Menşe \r\nKümülasyon Sistemi Kapsamı Ticarette Eşyanın Tercihli Menşeinin Tespiti Hakkında \r\nYönetmelikte Değişiklik Yapılmasına Dair Yönetmelik", "kw": "—", "hybrid": 0.0, "url": "https://www.resmigazete.gov.tr/eskiler/2026/03/20260323-2.htm", "date": "2026-03-23", "potential": false, "extra": []}, {"company": "—", "short": "—", "title": "MADDE 4-Bu Yönetmelik hükümlerini Ticaret Bakanı yürütür.", "category": "  Pan-Avrupa-Akdeniz \r\nTercihli Menşe Kurallarına Dair Bölgesel Konvansiyon Ortak Komitesinin 1/2023 \r\nSayılı Kararı Kapsamı Tercihli Menşe Kuralları Hakkında Yönetmelikte Değişiklik \r\nYapılmasına Dair Yönetmelik", "kw": "—", "hybrid": 0.0, "url": "https://www.resmigazete.gov.tr/eskiler/2026/03/20260323-3.htm", "date": "2026-03-23", "potential": false, "extra": []}, {"company": "—", "short": "—", "title": "MADDE 23-Bu Yönetmelik hükümlerini Enerji Piyasası Düzenleme Kurumu Başkanı yürütür.", "category": "  Şarj Hizmeti \r\nYönetmeliğinde Değişiklik Yapılmasına Dair Yönetmelik", "kw": "—", "hybrid": 0.0, "url": "https://www.resmigazete.gov.tr/eskiler/2026/03/20260323-4.htm", "date": "2026-03-23", "potential": false, "extra": []}, {"company": "—", "short": "—", "title": "MADDE 3-Bu Yönetmelik hükümlerini Türk Mühendis ve Mimar Odaları Birliği Ziraat Mühendisleri Odası Yönetim Kurulu yürütür.", "category": "  Türk Mühendis ve \r\nMimar Odaları Birliği Ziraat Mühendisleri Odası Ana Yönetmeliğinde Değişiklik \r\nYapılmasına Dair Yönetmelik", "kw": "—", "hybrid": 0.0, "url": "https://www.resmigazete.gov.tr/eskiler/2026/03/20260323-5.htm", "date": "2026-03-23", "potential": false, "extra": []}, {"company": "—", "short": "—", "title": "MADDE 17-(1) Bu Tebliğ hükümlerini Ticaret Bakanı yürütür.", "category": "  İthalatta Haksız \r\nRekabetin Önlenmesine İlişkin Tebliğ (No: 2026/8)", "kw": "—", "hybrid": 0.0, "url": "https://www.resmigazete.gov.tr/eskiler/2026/03/20260323-6.htm", "date": "2026-03-23", "potential": false, "extra": []}, {"company": "Maxion İnci & Jantaş", "short": "MİJ", "title": "Eki için tıklayınız.", "category": "  Meslekî Yeterlilik \r\nKurumu Meslekî Yeterlilik Belgesi Zorunluluğu Getirilen Mesleklere İlişkin \r\nTebliğ (Sıra No: 2026/1)", "kw": "Semantik Uyum", "hybrid": 0.0, "url": "https://www.resmigazete.gov.tr/eskiler/2026/03/20260323-7-1.pdf", "date": "2026-03-23", "potential": false, "extra": []}];
+const CC={"Maxion İnci & Jantaş": "#1F4E79", "İnci GS Yuasa & Vflow Tech": "#1E6B3C", "Yusen İnci Lojistik": "#7B3F00", "ISM Minibar & Starcool": "#6B2D8B", "Vinci B.V. & Holding (Genel)": "#8B1A1A"};
+const tb=document.getElementById('tb');
+const rc=document.getElementById('rowCount');
+
+function scoreC(s){return s>=65?'#E8A838':s>=45?'#7B9EBC':'#5A6272'}
+
+function render(d){
+  tb.innerHTML='';
+  d.forEach(r=>{
+    const tr=document.createElement('tr');
+    tr.dataset.p=r.potential?'yes':'no';
+    tr.dataset.t=(r.title+' '+r.kw+' '+r.company+' '+(r.extra||[]).join(' ')).toLowerCase();
+    const sc=r.hybrid;const c=scoreC(sc);
+    const co=CC[r.company]||'#555';
+    const kw=r.kw&&r.kw!=='—'
+      ?r.kw.split(',').map(k=>`<span class="kw-t">${k.trim()}</span>`).join('')
+      :'<span style="color:#2A2A2E">—</span>';
+    const ex=(r.extra||[]).map(e=>`<span class="ex-tag">${e}</span>`).join('');
+    tr.innerHTML=`
+      <td><span class="s-tag ${r.potential?'s-yes':'s-no'}">${r.potential?'İLGİLİ':'İLGİSİZ'}</span></td>
+      <td style="white-space:nowrap"><span class="co-tag" style="background:${co}12;color:${co};border:1px solid ${co}28">${r.short}</span>${ex}</td>
+      <td style="min-width:360px"><a href="${r.url}" target="_blank" class="t-link">${r.title}</a></td>
+      <td class="cat-td" title="${r.category}">${r.category}</td>
+      <td>${kw}</td>
+      <td style="min-width:120px"><div class="sb">
+        <div class="sb-track"><div class="sb-fill" style="width:${Math.min(100,sc)}%;background:${c}"></div></div>
+        <span class="sb-val" style="color:${c}">${sc.toFixed(1)}</span>
+      </div></td>
+      <td class="date-td">${r.date}</td>`;
+    tb.appendChild(tr);
+  });
+}
+render(R);
+
+let filt='all',qry='';
+function apply(){
+  let vis=0;
+  tb.querySelectorAll('tr').forEach(tr=>{
+    const fOk=filt==='all'||tr.dataset.p===filt;
+    const sOk=!qry||tr.dataset.t.includes(qry);
+    const show=fOk&&sOk;
+    tr.classList.toggle('hidden',!show);
+    if(show)vis++;
+  });
+  rc.textContent=vis+' sonuç';
+}
+function setFilter(btn,f){
+  filt=f;
+  document.querySelectorAll('.tc-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  apply();
+}
+document.getElementById('searchBox').addEventListener('input',e=>{
+  qry=e.target.value.toLowerCase();
+  apply();
+});
+
+let sd=Array(7).fill(1);
+function sortT(col){
+  const rows=[...tb.querySelectorAll('tr')];
+  rows.sort((a,b)=>{
+    const av=a.cells[col]?.textContent?.trim()||'';
+    const bv=b.cells[col]?.textContent?.trim()||'';
+    const an=parseFloat(av),bn=parseFloat(bv);
+    if(!isNaN(an)&&!isNaN(bn))return(an-bn)*sd[col];
+    return av.localeCompare(bv,'tr')*sd[col];
+  });
+  sd[col]*=-1;
+  rows.forEach(r=>tb.appendChild(r));
+  apply();
+}
+</script>
+</body>
+</html>
