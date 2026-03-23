@@ -1,0 +1,6 @@
+beautifulsoup4>=4.12
+requests>=2.31
+pandas>=2.0
+lxml>=4.9
+sentence-transformers>=2.2
+torch>=2.0
