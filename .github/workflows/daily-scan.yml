@@ -1,0 +1,54 @@
+name: "\U0001F4F0 İnci Holding Günlük Resmi Gazete Radarı"
+
+on:
+  schedule:
+    - cron: '0 4 * * 1-5'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: "\U0001F4E6 Kurulum"
+        run: pip install -r requirements.txt
+
+      - name: "\U0001F575\uFE0F Resmi Gazete tarama"
+        run: python inci_rg_radar.py
+        env:
+          BULLETIN_DATA_DIR: ${{ github.workspace }}
+
+      - name: "\U0001F310 Deploy"
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/ exports/
+          git diff --staged --quiet || git commit -m "📰 $(date +%d.%m.%Y) raporu"
+          git push
+
+      - name: "\U0001F4CA Özet"
+        if: always()
+        run: |
+          echo "## 📰 Radar Sonucu" >> $GITHUB_STEP_SUMMARY
+          if [ -f exports/summary.json ]; then
+            python3 -c "
+          import json
+          d=json.load(open('exports/summary.json'))
+          print(f'| Taranan | İlgili | Blacklist | Whitelist |')
+          print(f'|---------|--------|-----------|-----------|')
+          print(f'| {d[\"total\"]} | **{d[\"relevant\"]}** | {d[\"blacklisted\"]} | {d[\"whitelisted\"]} |')
+          " >> $GITHUB_STEP_SUMMARY
+          else
+            echo "Bugün tarama yapılamadı." >> $GITHUB_STEP_SUMMARY
+          fi
