@@ -1179,9 +1179,16 @@ body::before{{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;op
 
 /* ── Table ─────────────────────────────────────────────────── */
 .tw{{background:var(--s1);border:1px solid var(--bd);border-radius:var(--r);overflow:hidden}}
-.tw-scroll{{overflow-x:auto}}
-table{{width:100%;border-collapse:collapse;font-size:12px}}
-thead{{background:var(--s2);position:sticky;top:72px;z-index:50}}
+.tw-scroll{{overflow:auto;max-height:78vh}}
+.table{{width:100%;min-width:1260px;border-collapse:separate;border-spacing:0;font-size:12px;table-layout:fixed}}
+.table col.col-status{{width:146px}}
+.table col.col-company{{width:124px}}
+.table col.col-title{{width:auto}}
+.table col.col-category{{width:210px}}
+.table col.col-keyword{{width:220px}}
+.table col.col-score{{width:132px}}
+.table col.col-date{{width:132px}}
+.table thead th{{position:sticky;top:0;z-index:30;background:var(--s2)}}
 th{{padding:14px 18px;text-align:left;font-size:9px;font-family:var(--mono);font-weight:600;
   letter-spacing:1.2px;color:var(--t5);cursor:pointer;border-bottom:1px solid var(--bd2);
   text-transform:uppercase;white-space:nowrap;transition:color .2s;user-select:none}}
@@ -1190,6 +1197,8 @@ td{{padding:12px 18px;vertical-align:middle;border-bottom:1px solid #151518}}
 tr:last-child td{{border-bottom:none}}
 tr:hover td{{background:#14141A}}
 tr.hidden{{display:none!important}}
+.table th:nth-child(3),.table td:nth-child(3){{word-break:break-word}}
+.table th:nth-child(5),.table td:nth-child(5){{overflow:hidden}}
 /* Status */
 .s-tag{{font-size:9px;font-weight:600;padding:3px 10px;border-radius:3px;font-family:var(--mono);
   letter-spacing:.4px;white-space:nowrap}}
@@ -1290,11 +1299,20 @@ tr.hidden{{display:none!important}}
     <span class="tc-count" id="rowCount">{total} sonuç</span>
   </div>
   <div class="tw"><div class="tw-scroll">
-    <table>
+    <table class="table">
+      <colgroup>
+        <col class="col-status">
+        <col class="col-company">
+        <col class="col-title">
+        <col class="col-category">
+        <col class="col-keyword">
+        <col class="col-score">
+        <col class="col-date">
+      </colgroup>
       <thead><tr>
         <th onclick="sortT(0)">Durum</th>
         <th onclick="sortT(1)">Şirket</th>
-        <th onclick="sortT(2)" style="min-width:360px">Başlık</th>
+        <th onclick="sortT(2)">Başlık</th>
         <th onclick="sortT(3)">Kategori</th>
         <th onclick="sortT(4)">Anahtar Kelime</th>
         <th onclick="sortT(5)">Skor</th>
@@ -1334,10 +1352,10 @@ function render(d){{
     tr.innerHTML=`
       <td><span class="s-tag ${{r.potential?'s-yes':'s-no'}}">${{r.potential?'İLGİLİ':'İLGİSİZ'}}</span></td>
       <td style="white-space:nowrap"><span class="co-tag" style="background:${{co}}12;color:${{co}};border:1px solid ${{co}}28">${{r.short}}</span>${{ex}}</td>
-      <td style="min-width:360px"><a href="${{r.url}}" target="_blank" class="t-link">${{r.title}}</a></td>
+      <td><a href="${{r.url}}" target="_blank" class="t-link">${{r.title}}</a></td>
       <td class="cat-td" title="${{r.category}}">${{r.category}}</td>
       <td>${{kw}}</td>
-      <td style="min-width:120px"><div class="sb">
+      <td><div class="sb">
         <div class="sb-track"><div class="sb-fill" style="width:${{Math.min(100,sc)}}%;background:${{c}}"></div></div>
         <span class="sb-val" style="color:${{c}}">${{sc.toFixed(1)}}</span>
       </div></td>
