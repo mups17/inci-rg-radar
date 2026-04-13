@@ -345,32 +345,10 @@ GLOBAL_NEGATIVES = re.compile(
 # ═══════════════════════════════════════════════════════════════════════════════
 #  GÜRÜLTÜ FİLTRELERİ
 # ═══════════════════════════════════════════════════════════════════════════════
-SKIP_RE = re.compile(
-    r"(yarg[iı]\s*il[aâ]n|artırma\s*il[aâ]n|eksiltme\s*il[aâ]n|ihale\s*il[aâ]n|"
-    r"çeşitli\s*il[aâ]n|döviz\s*kuru|devlet\s*iç\s*borç|"
-    r"gaiplik|vasi\s*atan|isim\s*değiş|boşanma\s*il[aâ]n|icra\s*il[aâ]n|noter\s*il[aâ]n|"
-    r"üniversite\s*il[aâ]n|rektörlük\s*il[aâ]n|öğretim\s*üye\s*il[aâ]n|"
-    r"akademik\s*kadro|yök\s*karar|hakim\s*atama|savcı\s*atama|"
-    r"kaymakam\s*atama|vali\s*atama|noter\s*atama|seçim\s*kurulu|"
-    r"askeri\s*personel|anayasa\s*mahkemesi|cumhurba[şs]kanl[iı][ğg][iı]\s*atama|"
-    r"bireysel\s*atama|tayin\s*kararı|nüfus\s*müdürlüğü)",
-    re.IGNORECASE,
-)
-
+# v10.2: Sadece navigasyon öğeleri — içerik filtreleme 3 katmanlı sisteme bırakıldı
 NAV_SKIP_RE = re.compile(
     r"(ekleri\s*(için)?\s*t[iı]klay|buraya\s*t[iı]klay|pdf\s*(g[oö]r[uü]nt[uü]le|indir)|"
     r"^\s*\d+\s*$|sayfan[iı]n\s*ba[şs][iı]|ana\s*sayfa|geri\s*d[oö]n)",
-    re.IGNORECASE,
-)
-
-NOISE_TITLE_RE = re.compile(
-    r"(atama\s*kararı|münhal\s*kadro|görevlendirme\s*kararı|terfii\s*kararı|"
-    r"emeklilik\s*kararı|kadro\s*ihdası|görevden\s*alma|"
-    r"\bvali\b|\bkaymakam\b|\bhakim\b|\bsavcı\b|\brektör\b|"
-    r"burs\s*il[aâ]n|burs\s*başvuru|öğrenci\s*seçim|"
-    r"nüfus\s*hizmetleri|evlendirme\s*memur|"
-    r"yönetmelik\s*hükümlerini.*rektör|madde\s*\d+.*rektör|"
-    r"^MADDE\s*\d+|hükümlerini.*bakan[ıi]\s*yürüt)",
     re.IGNORECASE,
 )
 
@@ -724,12 +702,14 @@ class ResmiGazeteScraper:
         all_items, skipped = [], 0
         total_cats = len(cat_links)
         for i, (cat_title, cat_url) in enumerate(cat_links, start=1):
-            if SKIP_RE.search(cat_title) or NOISE_TITLE_RE.search(cat_title):
+            # Sadece navigasyon öğelerini atla — İÇERİK filtrelemeyi 3 katmanlı sisteme bırak
+            if NAV_SKIP_RE.search(cat_title) or len(cat_title.strip()) < 5:
+                skipped += 1
+                continue
+            # Merkez Bankası döviz kuru tablosu (günlük veri, mevzuat değil)
+            if re.search(r"merkez\s*bankasınca\s*belirlenen|günlük\s*değerleri", cat_title, re.IGNORECASE):
                 skipped += 1
                 print(f"   [{i}/{total_cats}] ⏭️  ATLANDI: {cat_title[:55]}")
-                continue
-            if re.search(r"anayasa\s*mahke", cat_title, re.IGNORECASE):
-                skipped += 1
                 continue
             self.logger.info(f"   ↳ Giriliyor: {cat_title[:60]}")
             print(f"   [{i}/{total_cats}] ✅ Taranıyor: {cat_title[:55]}")
@@ -1179,16 +1159,9 @@ body::before{{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;op
 
 /* ── Table ─────────────────────────────────────────────────── */
 .tw{{background:var(--s1);border:1px solid var(--bd);border-radius:var(--r);overflow:hidden}}
-.tw-scroll{{overflow:auto;max-height:78vh}}
-.table{{width:100%;min-width:1260px;border-collapse:separate;border-spacing:0;font-size:12px;table-layout:fixed}}
-.table col.col-status{{width:146px}}
-.table col.col-company{{width:124px}}
-.table col.col-title{{width:auto}}
-.table col.col-category{{width:210px}}
-.table col.col-keyword{{width:220px}}
-.table col.col-score{{width:132px}}
-.table col.col-date{{width:132px}}
-.table thead th{{position:sticky;top:0;z-index:30;background:var(--s2)}}
+.tw-scroll{{overflow-x:auto}}
+table{{width:100%;border-collapse:collapse;font-size:12px}}
+thead{{background:var(--s2);position:sticky;top:72px;z-index:50}}
 th{{padding:14px 18px;text-align:left;font-size:9px;font-family:var(--mono);font-weight:600;
   letter-spacing:1.2px;color:var(--t5);cursor:pointer;border-bottom:1px solid var(--bd2);
   text-transform:uppercase;white-space:nowrap;transition:color .2s;user-select:none}}
@@ -1197,8 +1170,6 @@ td{{padding:12px 18px;vertical-align:middle;border-bottom:1px solid #151518}}
 tr:last-child td{{border-bottom:none}}
 tr:hover td{{background:#14141A}}
 tr.hidden{{display:none!important}}
-.table th:nth-child(3),.table td:nth-child(3){{word-break:break-word}}
-.table th:nth-child(5),.table td:nth-child(5){{overflow:hidden}}
 /* Status */
 .s-tag{{font-size:9px;font-weight:600;padding:3px 10px;border-radius:3px;font-family:var(--mono);
   letter-spacing:.4px;white-space:nowrap}}
@@ -1299,20 +1270,11 @@ tr.hidden{{display:none!important}}
     <span class="tc-count" id="rowCount">{total} sonuç</span>
   </div>
   <div class="tw"><div class="tw-scroll">
-    <table class="table">
-      <colgroup>
-        <col class="col-status">
-        <col class="col-company">
-        <col class="col-title">
-        <col class="col-category">
-        <col class="col-keyword">
-        <col class="col-score">
-        <col class="col-date">
-      </colgroup>
+    <table>
       <thead><tr>
         <th onclick="sortT(0)">Durum</th>
         <th onclick="sortT(1)">Şirket</th>
-        <th onclick="sortT(2)">Başlık</th>
+        <th onclick="sortT(2)" style="min-width:360px">Başlık</th>
         <th onclick="sortT(3)">Kategori</th>
         <th onclick="sortT(4)">Anahtar Kelime</th>
         <th onclick="sortT(5)">Skor</th>
@@ -1352,10 +1314,10 @@ function render(d){{
     tr.innerHTML=`
       <td><span class="s-tag ${{r.potential?'s-yes':'s-no'}}">${{r.potential?'İLGİLİ':'İLGİSİZ'}}</span></td>
       <td style="white-space:nowrap"><span class="co-tag" style="background:${{co}}12;color:${{co}};border:1px solid ${{co}}28">${{r.short}}</span>${{ex}}</td>
-      <td><a href="${{r.url}}" target="_blank" class="t-link">${{r.title}}</a></td>
+      <td style="min-width:360px"><a href="${{r.url}}" target="_blank" class="t-link">${{r.title}}</a></td>
       <td class="cat-td" title="${{r.category}}">${{r.category}}</td>
       <td>${{kw}}</td>
-      <td><div class="sb">
+      <td style="min-width:120px"><div class="sb">
         <div class="sb-track"><div class="sb-fill" style="width:${{Math.min(100,sc)}}%;background:${{c}}"></div></div>
         <span class="sb-val" style="color:${{c}}">${{sc.toFixed(1)}}</span>
       </div></td>
@@ -1424,7 +1386,7 @@ def run_pipeline():
     print(f"    Mimari        : 3 Katmanlı Filtre (Blacklist → Whitelist → NLP)")
     print(f"    Blacklist     : {len(_BLACKLIST)} kategori (atama, kamulaştırma, askeri...)")
     print(f"    Whitelist     : {len(_WHITELIST)} kategori (gümrük, enerji, otomotiv...)")
-    print(f"    NLP Eşik      : Hybrid ≥ {HYBRID_THRESHOLD} (whitelist: ×0.65)")
+    print(f"    NLP Eşik      : Hybrid ≥ {HYBRID_THRESHOLD} (tüm kararlar aynı eşik)")
     print(f"    Ağırlık       : Keyword %{KW_WEIGHT*100:.0f} / Semantic %{SEM_WEIGHT*100:.0f}")
     print(f"    Retry         : {MAX_RETRIES}× deneme, {RETRY_BACKOFF}s backoff")
     print("=" * 70)
