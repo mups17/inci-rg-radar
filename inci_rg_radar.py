@@ -152,9 +152,9 @@ SEM_WEIGHT           = 0.40   # v10.1: semantic ağırlık düşürüldü
 MIN_KW_FOR_PASS      = 1      # v10.1: en az 1 keyword olmalı (semantic-only pratik olarak geçmez)
 
 # Retry ayarları
-MAX_RETRIES     = 3
-RETRY_BACKOFF   = 1.5    # saniye, her denemede katlanır
-REQUEST_TIMEOUT = 15
+MAX_RETRIES     = 2       # 3→2: daha hızlı başarısızlık tespiti
+RETRY_BACKOFF   = 1.0     # 1.5→1.0: daha kısa bekleme
+REQUEST_TIMEOUT = 12      # 15→12: GitHub Actions datacenter hızlı
 
 # ═══════════════════════════════════════════════════════════════════════════════
 #  TÜRKÇE YARDIMCI SABİTLER
@@ -702,7 +702,7 @@ class ResmiGazeteScraper:
         all_items, skipped = [], 0
         total_cats = len(cat_links)
         for i, (cat_title, cat_url) in enumerate(cat_links, start=1):
-            # Sadece navigasyon öğelerini atla — İÇERİK filtrelemeyi 3 katmanlı sisteme bırak
+            # Sadece navigasyon öğelerini atla
             if NAV_SKIP_RE.search(cat_title) or len(cat_title.strip()) < 5:
                 skipped += 1
                 continue
@@ -711,6 +711,17 @@ class ResmiGazeteScraper:
                 skipped += 1
                 print(f"   [{i}/{total_cats}] ⏭️  ATLANDI: {cat_title[:55]}")
                 continue
+
+            # ── BAŞLIK ÖN-FİLTRE: Blacklist başlıkta eşleşiyorsa fulltext çekme ──
+            pre_action, pre_reason, pre_cat = filter_item(cat_title, "")
+            if pre_action == "reject":
+                # Blacklist eşleşti — HTTP istek yapma, direkt kaydet
+                all_items.append(self._make(cat_title, cat_url, today, cat_title, ""))
+                skipped += 1
+                print(f"   [{i}/{total_cats}] ❌ BL: {cat_title[:55]}")
+                continue
+
+            # Blacklist'te değil → içeriğini çek
             self.logger.info(f"   ↳ Giriliyor: {cat_title[:60]}")
             print(f"   [{i}/{total_cats}] ✅ Taranıyor: {cat_title[:55]}")
             all_items.extend(self._fetch_category(cat_title, cat_url, today))
