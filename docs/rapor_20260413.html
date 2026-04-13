@@ -115,16 +115,9 @@ body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;opa
 
 /* ── Table ─────────────────────────────────────────────────── */
 .tw{background:var(--s1);border:1px solid var(--bd);border-radius:var(--r);overflow:hidden}
-.tw-scroll{overflow:auto;max-height:78vh}
-.table{width:100%;min-width:1260px;border-collapse:separate;border-spacing:0;font-size:12px;table-layout:fixed}
-.table col.col-status{width:146px}
-.table col.col-company{width:124px}
-.table col.col-title{width:auto}
-.table col.col-category{width:210px}
-.table col.col-keyword{width:220px}
-.table col.col-score{width:132px}
-.table col.col-date{width:132px}
-.table thead th{position:sticky;top:0;z-index:30;background:var(--s2)}
+.tw-scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:12px}
+thead{background:var(--s2);position:sticky;top:72px;z-index:50}
 th{padding:14px 18px;text-align:left;font-size:9px;font-family:var(--mono);font-weight:600;
   letter-spacing:1.2px;color:var(--t5);cursor:pointer;border-bottom:1px solid var(--bd2);
   text-transform:uppercase;white-space:nowrap;transition:color .2s;user-select:none}
@@ -133,8 +126,6 @@ td{padding:12px 18px;vertical-align:middle;border-bottom:1px solid #151518}
 tr:last-child td{border-bottom:none}
 tr:hover td{background:#14141A}
 tr.hidden{display:none!important}
-.table th:nth-child(3),.table td:nth-child(3){word-break:break-word}
-.table th:nth-child(5),.table td:nth-child(5){overflow:hidden}
 /* Status */
 .s-tag{font-size:9px;font-weight:600;padding:3px 10px;border-radius:3px;font-family:var(--mono);
   letter-spacing:.4px;white-space:nowrap}
@@ -190,7 +181,7 @@ tr.hidden{display:none!important}
       </div>
     </div>
     <div class="mast-meta">
-      <div class="mast-date">13 April 2026, 06:39</div>
+      <div class="mast-date">13 April 2026, 13:02</div>
       <div>Eşik: 38.0 · Çoklu Eşleşme · KW %60 / Sem %40</div>
     </div>
   </div>
@@ -201,7 +192,7 @@ tr.hidden{display:none!important}
   <div class="stats">
     <div class="st" style="--st-c:var(--slate)">
       <div class="st-label">TARANAN</div>
-      <div class="st-val">8</div>
+      <div class="st-val">11</div>
       <div class="st-hint">Bugünkü Resmi Gazete</div>
     </div>
     <div class="st" style="--st-c:var(--red)">
@@ -292,23 +283,14 @@ tr.hidden{display:none!important}
     <button class="tc-btn on" onclick="setFilter(this,'all')">Tümü</button>
     <button class="tc-btn"    onclick="setFilter(this,'yes')">İlgili</button>
     <button class="tc-btn"    onclick="setFilter(this,'no')">İlgisiz</button>
-    <span class="tc-count" id="rowCount">8 sonuç</span>
+    <span class="tc-count" id="rowCount">11 sonuç</span>
   </div>
   <div class="tw"><div class="tw-scroll">
-    <table class="table">
-      <colgroup>
-        <col class="col-status">
-        <col class="col-company">
-        <col class="col-title">
-        <col class="col-category">
-        <col class="col-keyword">
-        <col class="col-score">
-        <col class="col-date">
-      </colgroup>
+    <table>
       <thead><tr>
         <th onclick="sortT(0)">Durum</th>
         <th onclick="sortT(1)">Şirket</th>
-        <th onclick="sortT(2)">Başlık</th>
+        <th onclick="sortT(2)" style="min-width:360px">Başlık</th>
         <th onclick="sortT(3)">Kategori</th>
         <th onclick="sortT(4)">Anahtar Kelime</th>
         <th onclick="sortT(5)">Skor</th>
@@ -326,7 +308,7 @@ tr.hidden{display:none!important}
 </main>
 
 <script>
-const R=[{"company": "—", "short": "—", "title": "MADDE 50-(1) Bu Yönetmelik hükümlerini Akdeniz Üniversitesi Rektörü yürütür.", "category": "  Akdeniz Üniversitesi \r\nLisansüstü Eğitim ve Öğretim Yönetmeliği", "kw": "—", "hybrid": 0.0, "url": "https://www.resmigazete.gov.tr/eskiler/2026/04/20260413-1.htm", "date": "2026-04-13", "potential": false, "extra": []}, {"company": "—", "short": "—", "title": "MADDE 17-(1) Bu Yönetmelik hükümlerini İstanbul Okan Üniversitesi Rektörü yürütür.", "category": "  İstanbul Okan \r\nÜniversitesi Sanat ve Tasarım Uygulama ve Araştırma Merkezi Yönetmeliği", "kw": "—", "hybrid": 0.0, "url": "https://www.resmigazete.gov.tr/eskiler/2026/04/20260413-2.htm", "date": "2026-04-13", "potential": false, "extra": []}, {"company": "—", "short": "—", "title": "MADDE 4-Bu Yönetmelik hükümlerini İstanbul Topkapı Üniversitesi Rektörü yürütür.", "category": "  İstanbul Topkapı \r\nÜniversitesi Lisansüstü Eğitim ve Öğretim Yönetmeliğinde Değişiklik Yapılmasına \r\nDair Yönetmelik", "kw": "—", "hybrid": 0.0, "url": "https://www.resmigazete.gov.tr/eskiler/2026/04/20260413-3.htm", "date": "2026-04-13", "potential": false, "extra": []}, {"company": "—", "short": "—", "title": "MADDE 10-Bu Yönetmelik hükümlerini Hatay Mustafa Kemal Üniversitesi Rektörü yürütür.", "category": "  Mustafa Kemal \r\nÜniversitesi Bitki Sağlığı Kliniği Uygulama ve Araştırma Merkezi Yönetmeliğinde \r\nDeğişiklik Yapılmasına Dair Yönetmelik", "kw": "—", "hybrid": 0.0, "url": "https://www.resmigazete.gov.tr/eskiler/2026/04/20260413-4.htm", "date": "2026-04-13", "potential": false, "extra": []}, {"company": "—", "short": "—", "title": "MADDE 9-Bu Yönetmelik hükümlerini Hatay Mustafa Kemal Üniversitesi Rektörü yürütür.", "category": "  Mustafa Kemal \r\nÜniversitesi Deniz Kaplumbağaları İlk Yardım Tedavi ve Kurtarma Uygulama ve \r\nAraştırma Merkezi Yönetmeliğinde Değişiklik Yapılmasına Dair Yönetmelik", "kw": "—", "hybrid": 0.0, "url": "https://www.resmigazete.gov.tr/eskiler/2026/04/20260413-5.htm", "date": "2026-04-13", "potential": false, "extra": []}, {"company": "—", "short": "—", "title": "MADDE 8-Bu Yönetmelik hükümlerini Hatay Mustafa Kemal Üniversitesi Rektörü yürütür.", "category": "  Mustafa Kemal \r\nÜniversitesi Tarımsal Araştırma ve Uygulama Merkezi Yönetmeliğinde Değişiklik \r\nYapılmasına Dair Yönetmelik", "kw": "—", "hybrid": 0.0, "url": "https://www.resmigazete.gov.tr/eskiler/2026/04/20260413-6.htm", "date": "2026-04-13", "potential": false, "extra": []}, {"company": "—", "short": "—", "title": "MADDE 8-Bu Yönetmelik hükümlerini Hatay Mustafa Kemal Üniversitesi Rektörü yürütür.", "category": "  Mustafa Kemal \r\nÜniversitesi Üniversite Sanayi İşbirliği ve Teknoloji Transfer Ofisi Uygulama ve \r\nAraştırma Merkezi Yönetmeliğinde Değişiklik Yapılmasına Dair Yönetmelik", "kw": "—", "hybrid": 0.0, "url": "https://www.resmigazete.gov.tr/eskiler/2026/04/20260413-7.htm", "date": "2026-04-13", "potential": false, "extra": []}, {"company": "—", "short": "—", "title": "MADDE 18-(1) Bu Yönetmelik hükümlerini Yalova Üniversitesi Rektörü yürütür.", "category": "  Yalova Üniversitesi \r\nSürekli Eğitim Uygulama ve Araştırma Merkezi Yönetmeliği", "kw": "—", "hybrid": 0.0, "url": "https://www.resmigazete.gov.tr/eskiler/2026/04/20260413-8.htm", "date": "2026-04-13", "potential": false, "extra": []}];
+const R=[{"company": "—", "short": "—", "title": " Akdeniz Üniversitesi Lisansüstü Eğitim ve Öğretim Yönetmeliği", "category": "  Akdeniz Üniversitesi \r\nLisansüstü Eğitim ve Öğretim Yönetmeliği", "kw": "—", "hybrid": 0.0, "url": "https://www.resmigazete.gov.tr/eskiler/2026/04/20260413-1.htm", "date": "2026-04-13", "potential": false, "extra": []}, {"company": "—", "short": "—", "title": " İstanbul Okan Üniversitesi Sanat ve Tasarım Uygulama ve Araştırma Merkezi Yönetmeliği", "category": "  İstanbul Okan \r\nÜniversitesi Sanat ve Tasarım Uygulama ve Araştırma Merkezi Yönetmeliği", "kw": "—", "hybrid": 0.0, "url": "https://www.resmigazete.gov.tr/eskiler/2026/04/20260413-2.htm", "date": "2026-04-13", "potential": false, "extra": []}, {"company": "—", "short": "—", "title": " İstanbul Topkapı Üniversitesi Lisansüstü Eğitim ve Öğretim Yönetmeliğinde Değişiklik Yapılmasına Dair Yönetmelik", "category": "  İstanbul Topkapı \r\nÜniversitesi Lisansüstü Eğitim ve Öğretim Yönetmeliğinde Değişiklik Yapılmasına \r\nDair Yönetmelik", "kw": "—", "hybrid": 0.0, "url": "https://www.resmigazete.gov.tr/eskiler/2026/04/20260413-3.htm", "date": "2026-04-13", "potential": false, "extra": []}, {"company": "—", "short": "—", "title": " Mustafa Kemal Üniversitesi Bitki Sağlığı Kliniği Uygulama ve Araştırma Merkezi Yönetmeliğinde Değişiklik Yapılmasına Dair Yönetmelik", "category": "  Mustafa Kemal \r\nÜniversitesi Bitki Sağlığı Kliniği Uygulama ve Araştırma Merkezi Yönetmeliğinde \r\nDeğişiklik Yapılmasına Dair Yönetmelik", "kw": "—", "hybrid": 0.0, "url": "https://www.resmigazete.gov.tr/eskiler/2026/04/20260413-4.htm", "date": "2026-04-13", "potential": false, "extra": []}, {"company": "—", "short": "—", "title": " Mustafa Kemal Üniversitesi Deniz Kaplumbağaları İlk Yardım Tedavi ve Kurtarma Uygulama ve Araştırma Merkezi Yönetmeliğinde Değişiklik Yapılmasına Dair Yönetmelik", "category": "  Mustafa Kemal \r\nÜniversitesi Deniz Kaplumbağaları İlk Yardım Tedavi ve Kurtarma Uygulama ve \r\nAraştırma Merkezi Yönetmeliğinde Değişiklik Yapılmasına Dair Yönetmelik", "kw": "—", "hybrid": 0.0, "url": "https://www.resmigazete.gov.tr/eskiler/2026/04/20260413-5.htm", "date": "2026-04-13", "potential": false, "extra": []}, {"company": "—", "short": "—", "title": " Mustafa Kemal Üniversitesi Tarımsal Araştırma ve Uygulama Merkezi Yönetmeliğinde Değişiklik Yapılmasına Dair Yönetmelik", "category": "  Mustafa Kemal \r\nÜniversitesi Tarımsal Araştırma ve Uygulama Merkezi Yönetmeliğinde Değişiklik \r\nYapılmasına Dair Yönetmelik", "kw": "—", "hybrid": 0.0, "url": "https://www.resmigazete.gov.tr/eskiler/2026/04/20260413-6.htm", "date": "2026-04-13", "potential": false, "extra": []}, {"company": "—", "short": "—", "title": " Mustafa Kemal Üniversitesi Üniversite Sanayi İşbirliği ve Teknoloji Transfer Ofisi Uygulama ve Araştırma Merkezi Yönetmeliğinde Değişiklik Yapılmasına Dair Yönetmelik", "category": "  Mustafa Kemal \r\nÜniversitesi Üniversite Sanayi İşbirliği ve Teknoloji Transfer Ofisi Uygulama ve \r\nAraştırma Merkezi Yönetmeliğinde Değişiklik Yapılmasına Dair Yönetmelik", "kw": "—", "hybrid": 0.0, "url": "https://www.resmigazete.gov.tr/eskiler/2026/04/20260413-7.htm", "date": "2026-04-13", "potential": false, "extra": []}, {"company": "—", "short": "—", "title": " Yalova Üniversitesi Sürekli Eğitim Uygulama ve Araştırma Merkezi Yönetmeliği", "category": "  Yalova Üniversitesi \r\nSürekli Eğitim Uygulama ve Araştırma Merkezi Yönetmeliği", "kw": "—", "hybrid": 0.0, "url": "https://www.resmigazete.gov.tr/eskiler/2026/04/20260413-8.htm", "date": "2026-04-13", "potential": false, "extra": []}, {"company": "—", "short": "—", "title": "a - Yargı İlânı", "category": "a - Yargı İlânı", "kw": "—", "hybrid": 0.0, "url": "http://www.resmigazete.gov.tr/main.aspx?home=http://www.resmigazete.gov.tr/ilanlar/eskiilanlar/2026/04/20260413.htm&main=http://www.resmigazete.gov.tr/ilanlar/eskiilanlar/2026/04/20260413-2.htm", "date": "2026-04-13", "potential": false, "extra": []}, {"company": "—", "short": "—", "title": "b - Artırma, Eksiltme ve İhale İlânları", "category": "b\r\n- Artırma, Eksiltme ve İhale İlânları", "kw": "—", "hybrid": 0.0, "url": "http://www.resmigazete.gov.tr/main.aspx?home=http://www.resmigazete.gov.tr/ilanlar/eskiilanlar/2026/04/20260413.htm&main=http://www.resmigazete.gov.tr/ilanlar/eskiilanlar/2026/04/20260413-3.htm", "date": "2026-04-13", "potential": false, "extra": []}, {"company": "—", "short": "—", "title": "c - Çeşitli İlânlar", "category": "c - Çeşitli İlânlar", "kw": "—", "hybrid": 0.0, "url": "http://www.resmigazete.gov.tr/main.aspx?home=http://www.resmigazete.gov.tr/ilanlar/eskiilanlar/2026/04/20260413.htm&main=http://www.resmigazete.gov.tr/ilanlar/eskiilanlar/2026/04/20260413-4.htm", "date": "2026-04-13", "potential": false, "extra": []}];
 const CC={"Maxion İnci & Jantaş": "#1F4E79", "İnci GS Yuasa & Vflow Tech": "#1E6B3C", "Yusen İnci Lojistik": "#7B3F00", "ISM Minibar & Starcool": "#6B2D8B", "Vinci B.V. & Holding (Genel)": "#8B1A1A"};
 const tb=document.getElementById('tb');
 const rc=document.getElementById('rowCount');
@@ -348,10 +330,10 @@ function render(d){
     tr.innerHTML=`
       <td><span class="s-tag ${r.potential?'s-yes':'s-no'}">${r.potential?'İLGİLİ':'İLGİSİZ'}</span></td>
       <td style="white-space:nowrap"><span class="co-tag" style="background:${co}12;color:${co};border:1px solid ${co}28">${r.short}</span>${ex}</td>
-      <td><a href="${r.url}" target="_blank" class="t-link">${r.title}</a></td>
+      <td style="min-width:360px"><a href="${r.url}" target="_blank" class="t-link">${r.title}</a></td>
       <td class="cat-td" title="${r.category}">${r.category}</td>
       <td>${kw}</td>
-      <td><div class="sb">
+      <td style="min-width:120px"><div class="sb">
         <div class="sb-track"><div class="sb-fill" style="width:${Math.min(100,sc)}%;background:${c}"></div></div>
         <span class="sb-val" style="color:${c}">${sc.toFixed(1)}</span>
       </div></td>
