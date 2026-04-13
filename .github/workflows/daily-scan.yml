@@ -2,7 +2,7 @@ name: "\U0001F4F0 İnci Holding Günlük Resmi Gazete Radarı"
 
 on:
   schedule:
-    - cron: '0 4 * * 1-5'
+    - cron: '0 4 * * *'          # Her gün 07:00 İstanbul
   workflow_dispatch:
 
 permissions:
