@@ -712,16 +712,25 @@ class ResmiGazeteScraper:
                 print(f"   [{i}/{total_cats}] ⏭️  ATLANDI: {cat_title[:55]}")
                 continue
 
-            # ── BAŞLIK ÖN-FİLTRE: Blacklist başlıkta eşleşiyorsa fulltext çekme ──
+            # ── BAŞLIK ÖN-FİLTRE: Sadece içeriğe bakılmadan kesin elenebilecek kategoriler ──
+            # İlanlar, tebliğler, yönetmelikler ASLA atlanmaz — içlerinde ilgili karar olabilir
+            _SAFE_SKIP_CATS = {
+                "universite",       # Üniversite yönetmeliği asla İnci'yi ilgilendirmez
+                "yargi",            # AYM, Yargıtay, Danıştay kararları
+                "doviz_borc",       # Döviz kuru tabloları
+                "scraper_noise",    # MADDE xx hükümlerini...
+                "nufus_kisisel",    # Gaiplik, boşanma, nüfus
+                "secim",            # Seçim kurulu kararları
+            }
             pre_action, pre_reason, pre_cat = filter_item(cat_title, "")
-            if pre_action == "reject":
-                # Blacklist eşleşti — HTTP istek yapma, direkt kaydet
+            if pre_action == "reject" and pre_cat in _SAFE_SKIP_CATS:
+                # %100 ilgisiz — HTTP istek yapma, direkt kaydet
                 all_items.append(self._make(cat_title, cat_url, today, cat_title, ""))
                 skipped += 1
                 print(f"   [{i}/{total_cats}] ❌ BL: {cat_title[:55]}")
                 continue
 
-            # Blacklist'te değil → içeriğini çek
+            # Geri kalan her şey (ilanlar, tebliğler, kararlar, yönetmelikler) → İÇERİĞİNİ ÇEK
             self.logger.info(f"   ↳ Giriliyor: {cat_title[:60]}")
             print(f"   [{i}/{total_cats}] ✅ Taranıyor: {cat_title[:55]}")
             all_items.extend(self._fetch_category(cat_title, cat_url, today))
