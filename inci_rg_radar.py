@@ -159,6 +159,8 @@ REQUEST_TIMEOUT = 12      # 15→12: GitHub Actions datacenter hızlı
 # ═══════════════════════════════════════════════════════════════════════════════
 #  TÜRKÇE YARDIMCI SABİTLER
 # ═══════════════════════════════════════════════════════════════════════════════
+_AY_TR = {1:"ocak",2:"subat",3:"mart",4:"nisan",5:"mayis",6:"haziran",
+          7:"temmuz",8:"agustos",9:"eylul",10:"ekim",11:"kasim",12:"aralik"}
 # Türkçe alfanümerik karakter sınıfı — regex negative lookbehind/lookahead için
 _TR_ALPHA = r'a-zA-ZçÇğĞıİöÖşŞüÜâÂîÎûÛ0-9'
 _TR_WORD_PRE  = rf'(?<![{_TR_ALPHA}])'   # Öncesinde Türkçe alfanümerik yok
@@ -417,9 +419,12 @@ class ResmiGazeteScraper:
         self.logger  = logger
         self.session = requests.Session()
         self.session.headers.update({
-            "User-Agent":      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/124.0",
-            "Accept-Language": "tr-TR,tr;q=0.9",
-            "Accept":          "text/html,application/xhtml+xml,*/*;q=0.8",
+            "User-Agent":      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+            "Accept-Language": "tr-TR,tr;q=0.9,en-US;q=0.8,en;q=0.7",
+            "Accept":          "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+            "Accept-Encoding": "gzip, deflate, br",
+            "Connection":      "keep-alive",
+            "Cache-Control":   "no-cache",
         })
         # İstatistik
         self._stats = {"fetched": 0, "failed": 0, "retried": 0}
@@ -545,6 +550,27 @@ class ResmiGazeteScraper:
                 continue
         return None
 
+    # ── İlan mirror fallback ──────────────────────────────────────────────
+    def _try_ilan_mirror(self, cat_url: str, today) -> str | None:
+        """RG ilan sayfası timeout verdiğinde proxy + farklı timing ile tekrar dene."""
+        # Proxy üzerinden dene (RG direkt engelliyor olabilir)
+        html = self._try_proxies(cat_url)
+        if html:
+            print(f"      📡 İlan proxy'den çekildi")
+            return html
+
+        # Son çare: 30sn timeout ile tek istek daha
+        try:
+            time.sleep(3)  # Rate limit'ten kaçınmak için bekle
+            r = self.session.get(cat_url, timeout=30)
+            if r.status_code == 200 and len(r.content) > 200:
+                self._stats["fetched"] += 1
+                print(f"      📡 İlan uzun timeout ile çekildi")
+                return self._safe_decode(r)
+        except Exception:
+            pass
+        return None
+
     # ── Fihrist (ana sayfa) ───────────────────────────────────────────────
     def _fetch_index(self, today):
         ds  = today.strftime("%Y%m%d")
@@ -605,9 +631,20 @@ class ResmiGazeteScraper:
             ft = self._extract_fulltext(cat_url)
             return [self._make(cat_title, cat_url, today, cat_title, ft)]
 
-        html_text = self._get_html(cat_url)
+        # İlan sayfaları için daha uzun timeout
+        is_ilan = "/ilanlar/" in cat_url
+        tout = 25 if is_ilan else REQUEST_TIMEOUT
+
+        html_text = self._get_html(cat_url, timeout=tout)
+
+        # Fallback: RG timeout verdiyse haber mirror'dan dene
+        if not html_text and is_ilan:
+            html_text = self._try_ilan_mirror(cat_url, today)
+
         if not html_text:
-            return items
+            # İçerik çekilemedi — bunu raporda belirt
+            ft = f"[TIMEOUT] {cat_url} sayfasına erişilemedi, içerik kontrol edilemedi."
+            return [self._make(cat_title, cat_url, today, cat_title, ft)]
 
         soup = BeautifulSoup(html_text, "html.parser")
         candidates = []
