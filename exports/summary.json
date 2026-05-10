@@ -1,9 +1,9 @@
 {
-  "date": "2026-05-09",
-  "total": 10,
+  "date": "2026-05-10",
+  "total": 12,
   "relevant": 0,
   "blacklisted": 7,
   "whitelisted": 0,
-  "gray_zone": 3,
-  "report_file": "inci_rg_rapor_v10_20260509_0624.html"
+  "gray_zone": 5,
+  "report_file": "inci_rg_rapor_v10_20260510_0640.html"
 }
